@@ -15,6 +15,13 @@ struct tree {
 	int depth;				/* depth */
 
 	void *data;				/* every thing what you want */
-}
+};
+
+typedef int (*tree_cb_t)(struct tree *t, void *data);
+typedef int (*tree_filter_t)(const char *name);
+typedef int (*tree_cmp_t)(struct tree *t, void *data);
+
+struct tree *tree_alloc(void *data, int depth);
+void tree_add_child(struct tree *parent, struct tree *child);
 
 #endif

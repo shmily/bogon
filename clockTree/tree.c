@@ -1,12 +1,13 @@
 
 #include "tree.h"
+#include "logger.h"
 #include <stdlib.h>
 #include <memory.h>
 
 /*
  * Allocate a new tree structure and initialize.
  */
-struct tree *tree_alloc(const void *data, int depth)
+struct tree *tree_alloc(void *data, int depth)
 {
 	struct tree *t;
 
@@ -95,3 +96,41 @@ int tree_for_each_reverse(struct tree *tree, tree_cb_t cb, void *data)
 
 	return tree_for_each_reverse(tree->parent, cb, data);
 }
+
+/*
+ * Go over all the parent of the specified node.
+ */
+int tree_for_each_parent(struct tree *tree, tree_cb_t cb, void *data)
+{
+	if (!tree)
+		return 0;
+
+	if (tree_for_each_parent(tree->parent, cb, data))
+		return -1;
+
+	return cb(tree, data);
+}
+
+/*
+ * find the node match with the input param.
+ * @ cmp : the user define match founction
+ * @ data : the input param
+ */
+struct tree *tree_find(struct tree *tree, tree_cmp_t cmp, void *data)
+{
+	struct tree *t;
+
+	if (!tree)
+		return NULL;
+
+	if (!cmp(tree, data))
+		return tree;
+
+	t = tree_find(tree->child, cmp, data);
+	if (t)
+		return t;
+
+	return tree_find(tree->next, cmp, data);
+}
+
+
