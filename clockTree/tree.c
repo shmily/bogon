@@ -7,7 +7,7 @@
 /*
  * Allocate a new tree structure and initialize.
  */
-struct tree *tree_alloc(void *data, int depth)
+struct tree *tree_alloc(void *route, int depth)
 {
 	struct tree *t;
 
@@ -17,8 +17,8 @@ struct tree *tree_alloc(void *data, int depth)
 		return NULL;
 	}
 
-	/* store the user data */
-	t->data = data;
+	/* store route information */
+	t->route = route;
 
 	t->depth = depth;
 	t->tail = t;

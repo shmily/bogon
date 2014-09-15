@@ -12,8 +12,10 @@ PROJ_NAME=clockTree
 #|---------------------------------------------------------------------------------------|
 PROJ_FILES= \
 logger.h \
-clock_tree.c \
-tree.c tree.h
+tree.c tree.h \
+utils.c utils.h \
+clock_tree.c
+
 
 #|---------------------------------------------------------------------------------------|
 #| Compiler binaries                                                                     |
