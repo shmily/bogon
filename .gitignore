@@ -2,4 +2,5 @@
 clockTree/.obj/
 *.a
 *.o
+*.cmd
 
